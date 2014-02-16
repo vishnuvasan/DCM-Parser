@@ -33,7 +33,7 @@ use Exporter;
 our $VERSION='1.0';
 @ISA = qw(Exporter);
 
-@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print);
+@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print Group_Curves Group_Curves_Count Group_Curves_All Group_Curves_Print Group_Curves_Details Group_Curves_Details_Print);
 
 
 our ($FUNCTIONS,$END,$INDIVIDUAL_FUNCTION,$FUNCTION_DESCRIPTION_SEPARATOR);
@@ -274,7 +274,7 @@ sub Group_Curve_Finder
 {
 	Load_DCM();
 
-	my ($Grp_Curve,@Row_Values,,@Row_Values1,$Values1,@Values,@X_Axis_Values,$Size,$Description,@Grp_Curve_And_Size,$Function_Used,$Unit,$Value);
+	my ($Grp_Curve,@Row_Values,@Row_Values1,$Values1,@Values,@X_Axis_Values,$Size,$Description,@Grp_Curve_And_Size,$Function_Used,$Unit,$Value);
 	
 	for($Line=0;$Line<=$#DCM_Data;$Line++)
 	{
@@ -905,6 +905,79 @@ sub Arrays_Details_Print
 		print "\n\n";
 	}
 }
+
+sub Group_Curves
+{
+	my @Group_Curves;
+	Group_Curve_Finder();
+	foreach my $Grp_Curve (keys(%Grp_Curve_Details))
+	{push(@Group_Curves,$Grp_Curve);}
+	return \@Group_Curves;	
+}
+
+sub Group_Curves_Count
+{
+	my $Group_Curves_Count;
+	$Group_Curves_Count=Group_Curves();
+	return scalar(@$Group_Curves_Count);	
+}
+
+sub Group_Curves_All
+{
+	my $Group_Curves_All;
+	$Group_Curves_All=Group_Curves();
+	return join('|',(@$Group_Curves_All));	
+}
+
+sub Group_Curves_Print
+{
+	my $Group_Curves_All;
+	$Group_Curves_All=Group_Curves();
+	foreach(@$Group_Curves_All){print $_,"\n";}
+}
+
+sub Group_Curves_Details
+{
+	Group_Curve_Finder();
+	return \%Grp_Curve_Details;
+}
+
+sub Group_Curves_Details_Print
+{
+	Group_Curve_Finder();
+	foreach my $Group_Curve (keys(%Grp_Curve_Details))
+	{
+	
+		print "\n";
+		print '+---------------------------------------',"\n";
+		print "		GROUP CURVE		: ",$Group_Curve,"\n";
+		print "		SIZE			: ",$Grp_Curve_Details{$Group_Curve}{'SIZE'},"\n";
+		print "		DESCRIPTION		: ",$Grp_Curve_Details{$Group_Curve}{'DESCRIPTION'},"\n";
+		print "		FUNCTION		: ",$Grp_Curve_Details{$Group_Curve}{'FUNCTION'},"\n";
+		print "		X AXIS UNIT		: ",$Grp_Curve_Details{$Group_Curve}{'X-AXIS-UNIT'},"\n";
+		print "		X AXIS VARIABLE	: ",$Grp_Curve_Details{$Group_Curve}{'X-AXIS-VARIABLE'},"\n";
+		print "		X AXIS VALUE	: ",$Grp_Curve_Details{$Group_Curve}{'X-AXIS-VALUE'},"\n";
+		print "		UNIT			: ",$Grp_Curve_Details{$Group_Curve}{'UNIT'},"\n";
+		print "		VALUE			: ",$Grp_Curve_Details{$Group_Curve}{'VALUE'},"\n";
+		print '											-------------------------------------------+';
+		print "\n\n";
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 1;
