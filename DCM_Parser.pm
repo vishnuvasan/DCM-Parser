@@ -33,7 +33,7 @@ use Exporter;
 our $VERSION='1.0';
 @ISA = qw(Exporter);
 
-@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print );
+@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print);
 
 
 our ($FUNCTIONS,$END,$INDIVIDUAL_FUNCTION,$FUNCTION_DESCRIPTION_SEPARATOR);
@@ -217,7 +217,7 @@ sub Array_Finder
 					$DCM_Data[$Line1]=~/(\d+)(\s*)$/;
 					@Array=split(/\s/,$DCM_Data[$Line1]);
 					$Size=$Array[2];
-					$DCM_Data[$Line1]=~s/$Size//;
+					$DCM_Data[$Line1]=~s/(\s)$Size//;
 					$Array=$DCM_Data[$Line1];
 					$Array_Details{$Array}{'SIZE'}=$Size;			
 				}
@@ -300,7 +300,7 @@ sub Group_Curve_Finder
 					$DCM_Data[$Line1]=~/(\d+)(\s*)$/;
 					@Grp_Curve_And_Size=split(/\s/,$DCM_Data[$Line1]);
 					$Size=$Grp_Curve_And_Size[2];
-					$DCM_Data[$Line1]=~s/$Size//;
+					$DCM_Data[$Line1]=~s/(\s)$Size//;
 					$Grp_Curve=$DCM_Data[$Line1];
 					$Grp_Curve_Details{$Grp_Curve}{'SIZE'}=$Size;			
 				}
@@ -417,7 +417,7 @@ sub Distribution_Finder
 					$DCM_Data[$Line1]=~/(\d+)(\s*)$/;
 					@Distribution_And_Size=split(/\s/,$DCM_Data[$Line1]);
 					$Size=$Distribution_And_Size[2];
-					$DCM_Data[$Line1]=~s/$Size//;
+					$DCM_Data[$Line1]=~s/(\s)$Size//;
 					$Distribution=$DCM_Data[$Line1];
 					$Distribution_Details{$Distribution}{'SIZE'}=$Size;			
 				}
@@ -851,6 +851,60 @@ sub Parameters_Details_Print
 	}
 }
 
+sub Arrays
+{
+	my @Arrays;
+	Array_Finder();
+	foreach my $Array (keys(%Array_Details))
+	{push(@Arrays,$Array);}
+	return \@Arrays;	
+}
+
+sub Arrays_Count
+{
+	my $Arrays_Count;
+	$Arrays_Count=Arrays();
+	return scalar(@$Arrays_Count);	
+}
+
+sub Arrays_All
+{
+	my $Arrays_All;
+	$Arrays_All=Arrays();
+	return join('|',(@$Arrays_All));	
+}
+
+sub Arrays_Print
+{
+	my $Arrays_All;
+	$Arrays_All=Arrays();
+	foreach(@$Arrays_All){print $_,"\n";}
+}
+
+sub Arrays_Details
+{
+	Array_Finder();
+	return \%Array_Details;
+}
+
+sub Arrays_Details_Print
+{
+	Array_Finder();
+	foreach my $Array (keys(%Array_Details))
+	{
+	
+		print "\n";
+		print '+---------------------------------------',"\n";
+		print "		ARRAY			: ",$Array,"\n";
+		print "		SIZE			: ",$Array_Details{$Array}{'SIZE'},"\n";
+		print "		DESCRIPTION		: ",$Array_Details{$Array}{'DESCRIPTION'},"\n";
+		print "		FUNCTION		: ",$Array_Details{$Array}{'FUNCTION'},"\n";
+		print "		UNIT			: ",$Array_Details{$Array}{'UNIT'},"\n";
+		print "		VALUE			: ",$Array_Details{$Array}{'VALUE'},"\n";
+		print '											-------------------------------------------+';
+		print "\n\n";
+	}
+}
 
 
 1;
