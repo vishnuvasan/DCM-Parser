@@ -33,14 +33,14 @@ use Exporter;
 our $VERSION='1.0';
 @ISA = qw(Exporter);
 
-@EXPORT = qw(DCM_File DefaultTags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print);
+@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print );
 
 
 our ($FUNCTIONS,$END,$INDIVIDUAL_FUNCTION,$FUNCTION_DESCRIPTION_SEPARATOR);
-our (@Functions,%Descriptions,%Parameter_Details,%Array_Details,%Grp_Curve_Details,%Distribution_Details);
+our (%Descriptions,%Parameter_Details,%Array_Details,%Grp_Curve_Details,%Distribution_Details);
 our ($DCM,@DCM_Data);
 
-sub DefaultTags
+sub Default_Tags
 {
 	my $TagValue=shift;
 
@@ -91,7 +91,7 @@ sub Function_Finder
 			while($DCM_Data[$Function_End]!~/^$END(\s.*)/) 
 			{
 				$Function_End+=1;
-		}
+			}
 			goto PARSE_FUNCTION;
 		}
 	}	
@@ -110,14 +110,10 @@ sub Function_Finder
 
 		($Function_Description=$Description_Separation[1])=~s/\"//g;
 
-		#push(@Functions,$Function_Name);
-
 		$Descriptions{$Function_Name}=$Function_Description;
 	}
 	
 	return (\%Descriptions);
-
-	#return (\@Functions,\%Descriptions);
 }
 
 
@@ -797,7 +793,7 @@ sub Functions_And_Description_Print
 	%Description_All=%$Func_Desc;
 	foreach my $Func (keys(%Description_All))
 	{
-		print "$Func","=>","$Description_All{$Func} \n";
+		print "FUNCTION :",$Func,"  =>  "," DESCRIPTION ",$Description_All{$Func},"\n";
 	}
 }
 
@@ -830,6 +826,31 @@ sub Parameters_Print
 	$Params_All=Parameters();
 	foreach(@$Params_All){print $_,"\n";}
 }
+
+sub Parameters_Details
+{
+	Parameter_Finder();
+	return \%Parameter_Details;
+}
+
+sub Parameters_Details_Print
+{
+	Parameter_Finder();
+	foreach my $Parameter (keys(%Parameter_Details))
+	{
+	
+		print "\n";
+		print '+---------------------------------------',"\n";
+		print "		PARAMETER		: ",$Parameter,"\n";
+		print "		DESCRIPTION		: ",$Parameter_Details{$Parameter}{'DESCRIPTION'},"\n";
+		print "		FUNCTION		: ",$Parameter_Details{$Parameter}{'FUNCTION'},"\n";
+		print "		UNIT			: ",$Parameter_Details{$Parameter}{'UNIT'},"\n";
+		print "		VALUE			: ",$Parameter_Details{$Parameter}{'VALUE'},"\n";
+		print '											-------------------------------------------+';
+		print "\n\n";
+	}
+}
+
 
 
 1;
