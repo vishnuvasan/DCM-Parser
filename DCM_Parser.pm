@@ -33,7 +33,7 @@ use Exporter;
 our $VERSION='1.0';
 @ISA = qw(Exporter);
 
-@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print Group_Curves Group_Curves_Count Group_Curves_All Group_Curves_Print Group_Curves_Details Group_Curves_Details_Print);
+@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print Group_Curves Group_Curves_Count Group_Curves_All Group_Curves_Print Group_Curves_Details Group_Curves_Details_Print Distributions Distributions_Count Distributions_All Distributions_Print Distributions_Details Distributions_Details_Print);
 
 
 our ($FUNCTIONS,$END,$INDIVIDUAL_FUNCTION,$FUNCTION_DESCRIPTION_SEPARATOR);
@@ -967,6 +967,62 @@ sub Group_Curves_Details_Print
 
 
 
+
+
+sub Distributions
+{
+	my @Distributions;
+	Distribution_Finder();
+	foreach my $Distribution (keys(%Distribution_Details))
+	{push(@Distributions,$Distribution);}
+	return \@Distributions;	
+}
+
+sub Distributions_Count
+{
+	my $Distributions_Count;
+	$Distributions_Count=Distributions();
+	return scalar(@$Distributions_Count);	
+}
+
+sub Distributions_All
+{
+	my $Distributions_All;
+	$Distributions_All=Distributions();
+	return join('|',(@$Distributions_All));	
+}
+
+sub Distributions_Print
+{
+	my $Distributions_All;
+	$Distributions_All=Distributions();
+	foreach(@$Distributions_All){print $_,"\n";}
+}
+
+sub Distributions_Details
+{
+	Distribution_Finder();
+	return \%Distribution_Details;
+}
+
+sub Distributions_Details_Print
+{
+	Distribution_Finder();
+	foreach my $Distribution (keys(%Distribution_Details))
+	{
+	
+		print "\n";
+		print '+---------------------------------------',"\n";
+		print "		DISTRIBUTION	: ",$Distribution,"\n";
+		print "		SIZE			: ",$Distribution_Details{$Distribution}{'SIZE'},"\n";
+		print "		DESCRIPTION		: ",$Distribution_Details{$Distribution}{'DESCRIPTION'},"\n";
+		print "		FUNCTION		: ",$Distribution_Details{$Distribution}{'FUNCTION'},"\n";
+		print "		X AXIS UNIT		: ",$Distribution_Details{$Distribution}{'X-AXIS-UNIT'},"\n";
+		print "		X AXIS VALUE	: ",$Distribution_Details{$Distribution}{'X-AXIS-VALUE'},"\n";
+		print '											-------------------------------------------+';
+		print "\n\n";
+	}
+}
 
 
 
