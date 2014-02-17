@@ -33,7 +33,7 @@ use Exporter;
 our $VERSION='1.0';
 @ISA = qw(Exporter);
 
-@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print Group_Curves Group_Curves_Count Group_Curves_All Group_Curves_Print Group_Curves_Details Group_Curves_Details_Print Distributions Distributions_Count Distributions_All Distributions_Print Distributions_Details Distributions_Details_Print);
+@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print Group_Curves Group_Curves_Count Group_Curves_All Group_Curves_Print Group_Curves_Details Group_Curves_Details_Print Distributions Distributions_Count Distributions_All Distributions_Print Distributions_Details Distributions_Details_Print Maps Maps_Count Maps_All Maps_Print Maps_Details Maps_Details_Print);
 
 
 our ($FUNCTIONS,$END,$INDIVIDUAL_FUNCTION,$FUNCTION_DESCRIPTION_SEPARATOR);
@@ -964,11 +964,6 @@ sub Group_Curves_Details_Print
 	}
 }
 
-
-
-
-
-
 sub Distributions
 {
 	my @Distributions;
@@ -1025,15 +1020,66 @@ sub Distributions_Details_Print
 }
 
 
+sub Maps
+{
+	my @Maps;
+	Map_Finder();
+	foreach my $Map (keys(%Map_Details))
+	{push(@Maps,$Map);}
+	return \@Maps;	
+}
 
+sub Maps_Count
+{
+	my $Maps_Count;
+	$Maps_Count=Maps();
+	return scalar(@$Maps_Count);	
+}
 
+sub Maps_All
+{
+	my $Maps_All;
+	$Maps_All=Maps();
+	return join('|',(@$Maps_All));	
+}
 
+sub Maps_Print
+{
+	my $Maps_All;
+	$Maps_All=Maps();
+	foreach(@$Maps_All){print $_,"\n";}
+}
 
+sub Maps_Details
+{
+	Map_Finder();
+	return \%Map_Details;
+}
 
-
-
-
-
-
+sub Maps_Details_Print
+{
+	Map_Finder();
+	foreach my $Map (keys(%Map_Details))
+	{
+	
+		print "\n";
+		print '+---------------------------------------',"\n";
+		print "		Map	: ",$Map,"\n";
+		print "		X SIZE			: ",$Map_Details{$Map}{'X-SIZE'},"\n";
+		print "		Y SIZE			: ",$Map_Details{$Map}{'Y-SIZE'},"\n";
+		print "		DESCRIPTION		: ",$Map_Details{$Map}{'DESCRIPTION'},"\n";
+		print "		FUNCTION		: ",$Map_Details{$Map}{'FUNCTION'},"\n";
+		print "		X AXIS VARIABLE	: ",$Map_Details{$Map}{'X-AXIS-VARIABLE'},"\n";
+		print "		X AXIS UNIT		: ",$Map_Details{$Map}{'X-AXIS-UNIT'},"\n";
+		print "		X AXIS VALUE	: ",$Map_Details{$Map}{'X-AXIS-VALUE'},"\n";
+		print "		Y AXIS VARIABLE	: ",$Map_Details{$Map}{'Y-AXIS-VARIABLE'},"\n";
+		print "		Y AXIS VALUE	: ",$Map_Details{$Map}{'Y-AXIS-VALUE'},"\n";
+		print "		Y AXIS UNIT		: ",$Map_Details{$Map}{'Y-AXIS-UNIT'},"\n";
+		print "		UNIT			: ",$Map_Details{$Map}{'UNIT'},"\n";
+		print "		VALUE			: ",$Map_Details{$Map}{'VALUE'},"\n";
+		print '											-------------------------------------------+';
+		print "\n\n";
+	}
+}
 
 1;
