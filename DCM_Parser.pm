@@ -1102,7 +1102,6 @@ sub All_Variable_Details
 		$All_Details{$Parameter}{'VALUE'}=$Parameter_Details{$Parameter}{'VALUE'};
 	}
 
-}
 
 	Array_Finder();
 	foreach my $Array (keys(%Array_Details))
@@ -1112,7 +1111,7 @@ sub All_Variable_Details
  		$All_Details{$Array}{'SIZE'}=$Array_Details{$Array}{'SIZE'};
 		$All_Details{$Array}{'X-AXIS-VARIABLE'}='NIL';
 		$All_Details{$Array}{'X-SIZE'}='NIL';
-		$All_Details{$Array}{'X-AXIS-UNIT'}='NIL'};
+		$All_Details{$Array}{'X-AXIS-UNIT'}='NIL';
 		$All_Details{$Array}{'X-AXIS-VALUE'}='NIL';
 		$All_Details{$Array}{'Y-AXIS-VARIABLE'}='NIL';
 		$All_Details{$Array}{'Y-SIZE'}='NIL';
@@ -1120,7 +1119,7 @@ sub All_Variable_Details
 		$All_Details{$Array}{'Y-AXIS-VALUE'}='NIL';
 		$All_Details{$Array}{'UNIT'}=$Array_Details{$Array}{'UNIT'};
 		$All_Details{$Array}{'VALUE'}=$Array_Details{$Array}{'VALUE'};
-}
+	}
 
 
 	Group_Curve_Finder();
@@ -1139,7 +1138,7 @@ sub All_Variable_Details
 		$All_Details{$Group_Curve}{'Y-AXIS-VALUE'}='NIL';
 		$All_Details{$Group_Curve}{'UNIT'}=$Grp_Curve_Details{$Group_Curve}{'UNIT'};
 		$All_Details{$Group_Curve}{'VALUE'}=$Grp_Curve_Details{$Group_Curve}{'VALUE'};
-}
+	}
 
 
 	Distribution_Finder();
