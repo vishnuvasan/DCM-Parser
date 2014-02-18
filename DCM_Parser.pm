@@ -1180,4 +1180,31 @@ sub All_Variable_Details
 	return\%All_Details;
 }
 
+sub All_Variable_Details_Print
+{
+	All_Variable_Details();
+
+	foreach my $Variable (keys(%All_Variable_Details))
+	{
+		print "\n";
+		print '+---------------------------------------',"\n";
+		print "		VARIABLE		: ",$Variable,"\n";
+		print "		DESCRIPTION		: ",$All_Variable_Details{$Variable}{'DESCRIPTION'},"\n";
+		print "		FUNCTION		: ",$All_Variable_Details{$Variable}{'FUNCTION'},"\n";
+		print "		SIZE			: ",$All_Variable_Details{$Variable}{'SIZE'},"\n";
+		print "		X AXIS VARIABLE	: ",$All_Variable_Details{$Variable}{'X-AXIS-VARIABLE'},"\n";
+		print "		X SIZE			: ",$All_Variable_Details{$Variable}{'X-SIZE'},"\n";
+		print "		X AXIS UNIT		: ",$All_Variable_Details{$Variable}{'X-AXIS-UNIT'},"\n";
+		print "		X AXIS VALUE	: ",$All_Variable_Details{$Variable}{'X-AXIS-VALUE'},"\n";
+		print "		Y AXIS VARIABLE	: ",$All_Variable_Details{$Variable}{'Y-AXIS-VARIABLE'},"\n";
+		print "		Y SIZE			: ",$All_Variable_Details{$Variable}{'Y-SIZE'},"\n";
+		print "		Y AXIS UNIT		: ",$All_Variable_Details{$Variable}{'Y-AXIS-UNIT'},"\n";
+		print "		Y AXIS VALUE	: ",$All_Variable_Details{$Variable}{'Y-AXIS-VALUE'},"\n";
+		print "		UNIT			: ",$All_Variable_Details{$Variable}{'UNIT'},"\n";
+		print "		VALUE			: ",$All_Variable_Details{$Variable}{'VALUE'},"\n";
+		print '											-------------------------------------------+';
+		print "\n\n";
+	}
+}
+
 1;
