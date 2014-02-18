@@ -1065,16 +1065,16 @@ sub Maps_Details_Print
 		print "\n";
 		print '+---------------------------------------',"\n";
 		print "		Map	: ",$Map,"\n";
-		print "		X SIZE			: ",$Map_Details{$Map}{'X-SIZE'},"\n";
-		print "		Y SIZE			: ",$Map_Details{$Map}{'Y-SIZE'},"\n";
 		print "		DESCRIPTION		: ",$Map_Details{$Map}{'DESCRIPTION'},"\n";
 		print "		FUNCTION		: ",$Map_Details{$Map}{'FUNCTION'},"\n";
 		print "		X AXIS VARIABLE	: ",$Map_Details{$Map}{'X-AXIS-VARIABLE'},"\n";
+		print "		X SIZE			: ",$Map_Details{$Map}{'X-SIZE'},"\n";
 		print "		X AXIS UNIT		: ",$Map_Details{$Map}{'X-AXIS-UNIT'},"\n";
 		print "		X AXIS VALUE	: ",$Map_Details{$Map}{'X-AXIS-VALUE'},"\n";
 		print "		Y AXIS VARIABLE	: ",$Map_Details{$Map}{'Y-AXIS-VARIABLE'},"\n";
-		print "		Y AXIS VALUE	: ",$Map_Details{$Map}{'Y-AXIS-VALUE'},"\n";
+		print "		Y SIZE			: ",$Map_Details{$Map}{'Y-SIZE'},"\n";
 		print "		Y AXIS UNIT		: ",$Map_Details{$Map}{'Y-AXIS-UNIT'},"\n";
+		print "		Y AXIS VALUE	: ",$Map_Details{$Map}{'Y-AXIS-VALUE'},"\n";
 		print "		UNIT			: ",$Map_Details{$Map}{'UNIT'},"\n";
 		print "		VALUE			: ",$Map_Details{$Map}{'VALUE'},"\n";
 		print '											-------------------------------------------+';
@@ -1089,58 +1089,91 @@ sub All_Variable_Details
 	{
 		$All_Details{$Parameter}{'DESCRIPTION'}=$Parameter_Details{$Parameter}{'DESCRIPTION'};
 		$All_Details{$Parameter}{'FUNCTION'}=$Parameter_Details{$Parameter}{'FUNCTION'};
+ 		$All_Details{$Parameter}{'SIZE'}='NIL';
+		$All_Details{$Parameter}{'X-AXIS-VARIABLE'}='NIL';
+		$All_Details{$Parameter}{'X-SIZE'}='NIL';
+		$All_Details{$Parameter}{'X-AXIS-UNIT'}='NIL';
+		$All_Details{$Parameter}{'X-AXIS-VALUE'}='NIL';
+		$All_Details{$Parameter}{'Y-AXIS-VARIABLE'}='NIL';
+		$All_Details{$Parameter}{'Y-SIZE'}='NIL';
+		$All_Details{$Parameter}{'Y-AXIS-UNIT'}='NIL';
+		$All_Details{$Parameter}{'Y-AXIS-VALUE'}='NIL';
 		$All_Details{$Parameter}{'UNIT'}=$Parameter_Details{$Parameter}{'UNIT'};
 		$All_Details{$Parameter}{'VALUE'}=$Parameter_Details{$Parameter}{'VALUE'};
 	}
 
+}
+
 	Array_Finder();
 	foreach my $Array (keys(%Array_Details))
 	{
- 		$All_Details{$Array}{'SIZE'}=$Array_Details{$Array}{'SIZE'};
 		$All_Details{$Array}{'DESCRIPTION'}=$Array_Details{$Array}{'DESCRIPTION'};
 		$All_Details{$Array}{'FUNCTION'}=$Array_Details{$Array}{'FUNCTION'};
+ 		$All_Details{$Array}{'SIZE'}=$Array_Details{$Array}{'SIZE'};
+		$All_Details{$Array}{'X-AXIS-VARIABLE'}='NIL';
+		$All_Details{$Array}{'X-SIZE'}='NIL';
+		$All_Details{$Array}{'X-AXIS-UNIT'}='NIL'};
+		$All_Details{$Array}{'X-AXIS-VALUE'}='NIL';
+		$All_Details{$Array}{'Y-AXIS-VARIABLE'}='NIL';
+		$All_Details{$Array}{'Y-SIZE'}='NIL';
+		$All_Details{$Array}{'Y-AXIS-UNIT'}='NIL';
+		$All_Details{$Array}{'Y-AXIS-VALUE'}='NIL';
 		$All_Details{$Array}{'UNIT'}=$Array_Details{$Array}{'UNIT'};
 		$All_Details{$Array}{'VALUE'}=$Array_Details{$Array}{'VALUE'};
-	}
+}
 
 
 	Group_Curve_Finder();
 	foreach my $Group_Curve (keys(%Grp_Curve_Details))
 	{
-		$All_Details{$Group_Curve}{'SIZE'}=$Grp_Curve_Details{$Group_Curve}{'SIZE'};
 		$All_Details{$Group_Curve}{'DESCRIPTION'}=$Grp_Curve_Details{$Group_Curve}{'DESCRIPTION'};
 		$All_Details{$Group_Curve}{'FUNCTION'}=$Grp_Curve_Details{$Group_Curve}{'FUNCTION'};
-		$All_Details{$Group_Curve}{'X-AXIS-UNIT'}=$Grp_Curve_Details{$Group_Curve}{'X-AXIS-UNIT'};
+		$All_Details{$Group_Curve}{'SIZE'}=$Grp_Curve_Details{$Group_Curve}{'SIZE'};
 		$All_Details{$Group_Curve}{'X-AXIS-VARIABLE'}=$Grp_Curve_Details{$Group_Curve}{'X-AXIS-VARIABLE'};
+		$All_Details{$Group_Curve}{'X-SIZE'}='NIL';
+		$All_Details{$Group_Curve}{'X-AXIS-UNIT'}=$Grp_Curve_Details{$Group_Curve}{'X-AXIS-UNIT'};
 		$All_Details{$Group_Curve}{'X-AXIS-VALUE'}=$Grp_Curve_Details{$Group_Curve}{'X-AXIS-VALUE'};
+		$All_Details{$Group_Curve}{'Y-AXIS-VARIABLE'}='NIL';
+		$All_Details{$Group_Curve}{'Y-SIZE'}='NIL';
+		$All_Details{$Group_Curve}{'Y-AXIS-UNIT'}='NIL';
+		$All_Details{$Group_Curve}{'Y-AXIS-VALUE'}='NIL';
 		$All_Details{$Group_Curve}{'UNIT'}=$Grp_Curve_Details{$Group_Curve}{'UNIT'};
 		$All_Details{$Group_Curve}{'VALUE'}=$Grp_Curve_Details{$Group_Curve}{'VALUE'};
-	}
+}
 
 
 	Distribution_Finder();
 	foreach my $Distribution (keys(%Distribution_Details))
 	{
-		 $All_Details{$Distribution}{'SIZE'}=$Distribution_Details{$Distribution}{'SIZE'};
-		 $All_Details{$Distribution}{'DESCRIPTION'}=$Distribution_Details{$Distribution}{'DESCRIPTION'};
-		 $All_Details{$Distribution}{'FUNCTION'}=$Distribution_Details{$Distribution}{'FUNCTION'};
-		 $All_Details{$Distribution}{'X-AXIS-UNIT'}=$Distribution_Details{$Distribution}{'X-AXIS-UNIT'};
-		 $All_Details{$Distribution}{'X-AXIS-VALUE'}=$Distribution_Details{$Distribution}{'X-AXIS-VALUE'};
+		$All_Details{$Distribution}{'DESCRIPTION'}=$Distribution_Details{$Distribution}{'DESCRIPTION'};
+		$All_Details{$Distribution}{'FUNCTION'}=$Distribution_Details{$Distribution}{'FUNCTION'};
+		$All_Details{$Distribution}{'SIZE'}=$Distribution_Details{$Distribution}{'SIZE'};
+		$All_Details{$Distribution}{'X-AXIS-VARIABLE'}='NIL';
+		$All_Details{$Distribution}{'X-SIZE'}='NIL';
+		$All_Details{$Distribution}{'X-AXIS-UNIT'}=$Distribution_Details{$Distribution}{'X-AXIS-UNIT'};
+		$All_Details{$Distribution}{'X-AXIS-VALUE'}=$Distribution_Details{$Distribution}{'X-AXIS-VALUE'};
+		$All_Details{$Distribution}{'Y-AXIS-VARIABLE'}='NIL';
+		$All_Details{$Distribution}{'Y-SIZE'}='NIL';
+		$All_Details{$Distribution}{'Y-AXIS-UNIT'}='NIL';
+		$All_Details{$Distribution}{'Y-AXIS-VALUE'}='NIL';
+		$All_Details{$Distribution}{'UNIT'}='NIL';
+		$All_Details{$Distribution}{'VALUE'}='NIL';
 	}
 
 	Map_Finder();
 	foreach my $Map (keys(%Map_Details))
 	{
-		 $All_Details{$Map}{'X-SIZE'}=$Map_Details{$Map}{'X-SIZE'};
-		 $All_Details{$Map}{'Y-SIZE'}=$Map_Details{$Map}{'Y-SIZE'};
 		 $All_Details{$Map}{'DESCRIPTION'}=$Map_Details{$Map}{'DESCRIPTION'};
 		 $All_Details{$Map}{'FUNCTION'}=$Map_Details{$Map}{'FUNCTION'};
+		 $All_Details{$Map}{'SIZE'}='NIL';
 		 $All_Details{$Map}{'X-AXIS-VARIABLE'}=$Map_Details{$Map}{'X-AXIS-VARIABLE'};
+		 $All_Details{$Map}{'X-SIZE'}=$Map_Details{$Map}{'X-SIZE'};
 		 $All_Details{$Map}{'X-AXIS-UNIT'}=$Map_Details{$Map}{'X-AXIS-UNIT'};
 		 $All_Details{$Map}{'X-AXIS-VALUE'}=$Map_Details{$Map}{'X-AXIS-VALUE'};
 		 $All_Details{$Map}{'Y-AXIS-VARIABLE'}=$Map_Details{$Map}{'Y-AXIS-VARIABLE'};
-		 $All_Details{$Map}{'Y-AXIS-VALUE'}=$Map_Details{$Map}{'Y-AXIS-VALUE'};
+		 $All_Details{$Map}{'Y-SIZE'}=$Map_Details{$Map}{'Y-SIZE'};
 		 $All_Details{$Map}{'Y-AXIS-UNIT'}=$Map_Details{$Map}{'Y-AXIS-UNIT'};
+		 $All_Details{$Map}{'Y-AXIS-VALUE'}=$Map_Details{$Map}{'Y-AXIS-VALUE'};
 		 $All_Details{$Map}{'UNIT'}=$Map_Details{$Map}{'UNIT'};
 		 $All_Details{$Map}{'VALUE'}=$Map_Details{$Map}{'VALUE'};
 	}
