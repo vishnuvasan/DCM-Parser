@@ -33,11 +33,11 @@ use Exporter;
 our $VERSION='1.0';
 @ISA = qw(Exporter);
 
-@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print Group_Curves Group_Curves_Count Group_Curves_All Group_Curves_Print Group_Curves_Details Group_Curves_Details_Print Distributions Distributions_Count Distributions_All Distributions_Print Distributions_Details Distributions_Details_Print Maps Maps_Count Maps_All Maps_Print Maps_Details Maps_Details_Print);
+@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print Group_Curves Group_Curves_Count Group_Curves_All Group_Curves_Print Group_Curves_Details Group_Curves_Details_Print Distributions Distributions_Count Distributions_All Distributions_Print Distributions_Details Distributions_Details_Print Maps Maps_Count Maps_All Maps_Print Maps_Details Maps_Details_Print All_Variable_Details);
 
 
 our ($FUNCTIONS,$END,$INDIVIDUAL_FUNCTION,$FUNCTION_DESCRIPTION_SEPARATOR);
-our (%Descriptions,%Parameter_Details,%Array_Details,%Grp_Curve_Details,%Distribution_Details);
+our (%Descriptions,%Parameter_Details,%Array_Details,%Grp_Curve_Details,%Distribution_Details,%Map_Details,%All_Details);
 our ($DCM,@DCM_Data);
 
 sub Default_Tags
@@ -1080,6 +1080,72 @@ sub Maps_Details_Print
 		print '											-------------------------------------------+';
 		print "\n\n";
 	}
+}
+
+sub All_Variable_Details
+{
+	Parameter_Finder();
+	foreach my $Parameter (keys(%Parameter_Details))
+	{
+		$All_Details{$Parameter}{'DESCRIPTION'}=$Parameter_Details{$Parameter}{'DESCRIPTION'};
+		$All_Details{$Parameter}{'FUNCTION'}=$Parameter_Details{$Parameter}{'FUNCTION'};
+		$All_Details{$Parameter}{'UNIT'}=$Parameter_Details{$Parameter}{'UNIT'};
+		$All_Details{$Parameter}{'VALUE'}=$Parameter_Details{$Parameter}{'VALUE'};
+	}
+
+	Array_Finder();
+	foreach my $Array (keys(%Array_Details))
+	{
+ 		$All_Details{$Array}{'SIZE'}=$Array_Details{$Array}{'SIZE'};
+		$All_Details{$Array}{'DESCRIPTION'}=$Array_Details{$Array}{'DESCRIPTION'};
+		$All_Details{$Array}{'FUNCTION'}=$Array_Details{$Array}{'FUNCTION'};
+		$All_Details{$Array}{'UNIT'}=$Array_Details{$Array}{'UNIT'};
+		$All_Details{$Array}{'VALUE'}=$Array_Details{$Array}{'VALUE'};
+	}
+
+
+	Group_Curve_Finder();
+	foreach my $Group_Curve (keys(%Grp_Curve_Details))
+	{
+		$All_Details{$Group_Curve}{'SIZE'}=$Grp_Curve_Details{$Group_Curve}{'SIZE'};
+		$All_Details{$Group_Curve}{'DESCRIPTION'}=$Grp_Curve_Details{$Group_Curve}{'DESCRIPTION'};
+		$All_Details{$Group_Curve}{'FUNCTION'}=$Grp_Curve_Details{$Group_Curve}{'FUNCTION'};
+		$All_Details{$Group_Curve}{'X-AXIS-UNIT'}=$Grp_Curve_Details{$Group_Curve}{'X-AXIS-UNIT'};
+		$All_Details{$Group_Curve}{'X-AXIS-VARIABLE'}=$Grp_Curve_Details{$Group_Curve}{'X-AXIS-VARIABLE'};
+		$All_Details{$Group_Curve}{'X-AXIS-VALUE'}=$Grp_Curve_Details{$Group_Curve}{'X-AXIS-VALUE'};
+		$All_Details{$Group_Curve}{'UNIT'}=$Grp_Curve_Details{$Group_Curve}{'UNIT'};
+		$All_Details{$Group_Curve}{'VALUE'}=$Grp_Curve_Details{$Group_Curve}{'VALUE'};
+	}
+
+
+	Distribution_Finder();
+	foreach my $Distribution (keys(%Distribution_Details))
+	{
+		 $All_Details{$Distribution}{'SIZE'}=$Distribution_Details{$Distribution}{'SIZE'};
+		 $All_Details{$Distribution}{'DESCRIPTION'}=$Distribution_Details{$Distribution}{'DESCRIPTION'};
+		 $All_Details{$Distribution}{'FUNCTION'}=$Distribution_Details{$Distribution}{'FUNCTION'};
+		 $All_Details{$Distribution}{'X-AXIS-UNIT'}=$Distribution_Details{$Distribution}{'X-AXIS-UNIT'};
+		 $All_Details{$Distribution}{'X-AXIS-VALUE'}=$Distribution_Details{$Distribution}{'X-AXIS-VALUE'};
+	}
+
+	Map_Finder();
+	foreach my $Map (keys(%Map_Details))
+	{
+		 $All_Details{$Map}{'X-SIZE'}=$Map_Details{$Map}{'X-SIZE'};
+		 $All_Details{$Map}{'Y-SIZE'}=$Map_Details{$Map}{'Y-SIZE'};
+		 $All_Details{$Map}{'DESCRIPTION'}=$Map_Details{$Map}{'DESCRIPTION'};
+		 $All_Details{$Map}{'FUNCTION'}=$Map_Details{$Map}{'FUNCTION'};
+		 $All_Details{$Map}{'X-AXIS-VARIABLE'}=$Map_Details{$Map}{'X-AXIS-VARIABLE'};
+		 $All_Details{$Map}{'X-AXIS-UNIT'}=$Map_Details{$Map}{'X-AXIS-UNIT'};
+		 $All_Details{$Map}{'X-AXIS-VALUE'}=$Map_Details{$Map}{'X-AXIS-VALUE'};
+		 $All_Details{$Map}{'Y-AXIS-VARIABLE'}=$Map_Details{$Map}{'Y-AXIS-VARIABLE'};
+		 $All_Details{$Map}{'Y-AXIS-VALUE'}=$Map_Details{$Map}{'Y-AXIS-VALUE'};
+		 $All_Details{$Map}{'Y-AXIS-UNIT'}=$Map_Details{$Map}{'Y-AXIS-UNIT'};
+		 $All_Details{$Map}{'UNIT'}=$Map_Details{$Map}{'UNIT'};
+		 $All_Details{$Map}{'VALUE'}=$Map_Details{$Map}{'VALUE'};
+	}
+
+	return\%All_Details;
 }
 
 1;
