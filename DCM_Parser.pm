@@ -33,7 +33,7 @@ use Exporter;
 our $VERSION='1.0';
 @ISA = qw(Exporter);
 
-@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print Group_Curves Group_Curves_Count Group_Curves_All Group_Curves_Print Group_Curves_Details Group_Curves_Details_Print Distributions Distributions_Count Distributions_All Distributions_Print Distributions_Details Distributions_Details_Print Maps Maps_Count Maps_All Maps_Print Maps_Details Maps_Details_Print All_Variable_Details);
+@EXPORT = qw(DCM_File Default_Tags Functions_Tag End_Tag Individual_Function_Tag Function_Description_Separator Parameter_Tag Description_Tag Function_Tag Unit_Tag Value_Tag Text_Tag Array_Tag Group_Curve_Tag X_Axis_Variable_Tag X_Axis_Tag X_Axis_Unit_Tag Distribution_Tag Map_Tag Y_Axis_Variable_Tag Y_Axis_Tag Y_Axis_Unit_Tag Load_DCM Function_Finder Functions Functions_Count Functions_All Functions_Print Functions_And_Description Functions_And_Description_Count Functions_And_Description_All Functions_And_Description_Print Parameters Parameters_Count Parameters_All Parameters_Print Parameters_Details Parameters_Details_Print Arrays Arrays_Count Arrays_All Arrays_Print Arrays_Details Arrays_Details_Print Group_Curves Group_Curves_Count Group_Curves_All Group_Curves_Print Group_Curves_Details Group_Curves_Details_Print Distributions Distributions_Count Distributions_All Distributions_Print Distributions_Details Distributions_Details_Print Maps Maps_Count Maps_All Maps_Print Maps_Details Maps_Details_Print All_Variable_Details All_Variable_Details_Print);
 
 
 our ($FUNCTIONS,$END,$INDIVIDUAL_FUNCTION,$FUNCTION_DESCRIPTION_SEPARATOR);
@@ -1184,24 +1184,26 @@ sub All_Variable_Details_Print
 {
 	All_Variable_Details();
 
+	my %All_Variable_Details=%All_Details;
+
 	foreach my $Variable (keys(%All_Variable_Details))
 	{
 		print "\n";
 		print '+---------------------------------------',"\n";
-		print "		VARIABLE		: ",$Variable,"\n";
-		print "		DESCRIPTION		: ",$All_Variable_Details{$Variable}{'DESCRIPTION'},"\n";
-		print "		FUNCTION		: ",$All_Variable_Details{$Variable}{'FUNCTION'},"\n";
-		print "		SIZE			: ",$All_Variable_Details{$Variable}{'SIZE'},"\n";
-		print "		X AXIS VARIABLE	: ",$All_Variable_Details{$Variable}{'X-AXIS-VARIABLE'},"\n";
-		print "		X SIZE			: ",$All_Variable_Details{$Variable}{'X-SIZE'},"\n";
-		print "		X AXIS UNIT		: ",$All_Variable_Details{$Variable}{'X-AXIS-UNIT'},"\n";
-		print "		X AXIS VALUE	: ",$All_Variable_Details{$Variable}{'X-AXIS-VALUE'},"\n";
-		print "		Y AXIS VARIABLE	: ",$All_Variable_Details{$Variable}{'Y-AXIS-VARIABLE'},"\n";
-		print "		Y SIZE			: ",$All_Variable_Details{$Variable}{'Y-SIZE'},"\n";
-		print "		Y AXIS UNIT		: ",$All_Variable_Details{$Variable}{'Y-AXIS-UNIT'},"\n";
-		print "		Y AXIS VALUE	: ",$All_Variable_Details{$Variable}{'Y-AXIS-VALUE'},"\n";
-		print "		UNIT			: ",$All_Variable_Details{$Variable}{'UNIT'},"\n";
-		print "		VALUE			: ",$All_Variable_Details{$Variable}{'VALUE'},"\n";
+		print '		VARIABLE		: ',$Variable,"\n";
+		print '		DESCRIPTION		: ',$All_Variable_Details{$Variable}{'DESCRIPTION'},"\n";
+		print '		FUNCTION		: ',$All_Variable_Details{$Variable}{'FUNCTION'},"\n";
+		print '		SIZE			: ',$All_Variable_Details{$Variable}{'SIZE'},"\n";
+		print '		X AXIS VARIABLE	: ',$All_Variable_Details{$Variable}{'X-AXIS-VARIABLE'},"\n";
+		print '		X SIZE			: ',$All_Variable_Details{$Variable}{'X-SIZE'},"\n";
+		print '		X AXIS UNIT		: ',$All_Variable_Details{$Variable}{'X-AXIS-UNIT'},"\n";
+		print '		X AXIS VALUE	: ',$All_Variable_Details{$Variable}{'X-AXIS-VALUE'},"\n";
+		print '		Y AXIS VARIABLE	: ',$All_Variable_Details{$Variable}{'Y-AXIS-VARIABLE'},"\n";
+		print '		Y SIZE			: ',$All_Variable_Details{$Variable}{'Y-SIZE'},"\n";
+		print '		Y AXIS UNIT		: ',$All_Variable_Details{$Variable}{'Y-AXIS-UNIT'},"\n";
+		print '		Y AXIS VALUE	: ',$All_Variable_Details{$Variable}{'Y-AXIS-VALUE'},"\n";
+		print '		UNIT			: ',$All_Variable_Details{$Variable}{'UNIT'},"\n";
+		print '		VALUE			: ',$All_Variable_Details{$Variable}{'VALUE'},"\n";
 		print '											-------------------------------------------+';
 		print "\n\n";
 	}
